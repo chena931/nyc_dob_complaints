@@ -7,6 +7,7 @@ var sortedStreets;
 var whichStreet = 0;
 
 
+
 function preload(){
     complaints = loadJSON("data/complaints.json");
 } 
@@ -22,17 +23,37 @@ function setup() {
     var streets = {};
     for (var i = 0; i < complaints.data.length; i++) {
         var streetName = complaints.data[i][12];
+        streetName = streetName.trim();
+        streetName = streetName.toUpperCase();
         streets[streetName] = 1 + (streets[streetName] || 0);
+
     }
 
     //sort them
     sortedStreets = sortHighLow(streets);   
+
+
 
 }
 
 function draw() {
 
     background("#E6EBE0");
+
+    strokeWeight(1);
+    stroke("#0a4318");
+    
+    if(sortedStreets[whichStreet][0].indexOf("STREET") > -1){
+        for(var y = 0; y<windowHeight; y++){
+            line(0,y*15,windowWidth,y*15);
+        }        
+    }else if(sortedStreets[whichStreet][0].indexOf("AVENUE")> -1){
+        for(var x = 0; x <windowWidth; x ++){
+            line(x*15,0,x*15,windowHeight);
+        } 
+    }
+
+    noStroke();
     textSize(50);
     
     fill("#5CA4A9");

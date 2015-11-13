@@ -7,6 +7,7 @@ var complaintCodes;
 var sortedStreets;
 var whichStreet = 0;
 var code;
+var level;
 
 function preload(){
     complaints = loadJSON("data/complaints.json");
@@ -36,8 +37,35 @@ function setup() {
 function draw() {
 
     code = sortedStreets[whichStreet][0];
+    code = complaintCodes[code];
+    level = code["priority"];
+    code = code["category"];
+    code = code.trim();
+
 
     background("#E6EBE0");
+
+    noStroke();
+
+    if(level.indexOf("A")> -1){
+        fill("#ee2c2c");
+        ellipse(350,450,50,50);
+        ellipse(450,450,50,50);
+        ellipse(550,450,50,50);
+        ellipse(650,450,50,50);
+    }else if(level.indexOf("B")> -1){
+        fill("#ee982c");
+        ellipse(350,450,50,50);
+        ellipse(450,450,50,50);
+        ellipse(550,450,50,50);
+    }else if(level.indexOf("C")> -1){
+        fill("#a8ee2c");
+        ellipse(350,450,50,50);
+        ellipse(450,450,50,50);
+    }else if(level.indexOf("D")> -1){
+        fill("#2ceec2");
+        ellipse(350,450,50,50);
+    }
 
     textSize(50);
     
